@@ -1,35 +1,29 @@
-package org.felix.springframework.basics.relaciones;
+package org.felix.springframework.basics.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="address")
-public class Address {
+@Table(name ="user")
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "street")
-	private String street;
+	@Column(name = "username")
+	private String username;
 	
-	@Column(name = "number")
-	private String number;
+	@Column(name = "password")
+	private String password;
 
-	@Column(name = "city")
-	private String city;
-	
-	@ManyToOne
-	private Profile profile;
-
-	//GETTERS AND SETTERS 
 	public Integer getId() {
 		return id;
 	}
@@ -38,29 +32,26 @@ public class Address {
 		this.id = id;
 	}
 
-	public String getStreet() {
-		return street;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
-	public String getNumber() {
-		return number;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setNumber(String number) {
-		this.number = number;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
+	@OneToOne
+	@JoinColumn(name = "profile_id", 
+	referencedColumnName = "id") //el nombre de la columna en la otra tabla
+	private Profile profile;
 
 	public Profile getProfile() {
 		return profile;
@@ -86,7 +77,7 @@ public class Address {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Address other = (Address) obj;
+		User other = (User) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -94,4 +85,6 @@ public class Address {
 			return false;
 		return true;
 	}
+	
+	
 }

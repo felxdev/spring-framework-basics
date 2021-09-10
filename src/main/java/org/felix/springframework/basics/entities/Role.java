@@ -1,6 +1,4 @@
-package org.felix.springframework.basics.relaciones;
-
-import java.sql.Date;
+package org.felix.springframework.basics.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,22 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name ="profile")
-public class Profile {
+@Table(name ="role")
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "first_name")
-	private String firstName;
-	
-	@Column(name = "lastName")
-	private String lastName;
-	
-	@Column(name = "birth_date")
-	private Date birthDate;
+	@Column(name = "name")
+	private String name;
 
 	public Integer getId() {
 		return id;
@@ -35,28 +27,12 @@ public class Profile {
 		this.id = id;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getName() {
+		return name;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -64,6 +40,7 @@ public class Profile {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
 
@@ -75,11 +52,16 @@ public class Profile {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Profile other = (Profile) obj;
+		Role other = (Role) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
 			return false;
 		return true;
 	}

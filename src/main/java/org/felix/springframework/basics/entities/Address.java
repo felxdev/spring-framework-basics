@@ -1,29 +1,35 @@
-package org.felix.springframework.basics.relaciones;
+package org.felix.springframework.basics.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-public class UserInRole {
+@Table(name ="address")
+public class Address {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name = "role_id")
-	private Role role;
+	@Column(name = "street")
+	private String street;
+	
+	@Column(name = "number")
+	private String number;
 
+	@Column(name = "city")
+	private String city;
+	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	private Profile profile;
 
+	//GETTERS AND SETTERS 
 	public Integer getId() {
 		return id;
 	}
@@ -32,22 +38,39 @@ public class UserInRole {
 		this.id = id;
 	}
 
-	public Role getRole() {
-		return role;
+	public String getStreet() {
+		return street;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setStreet(String street) {
+		this.street = street;
 	}
 
-	public User getUser() {
-		return user;
+	public String getNumber() {
+		return number;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setNumber(String number) {
+		this.number = number;
 	}
 
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Profile getProfile() {
+		return profile;
+	}
+
+	public void setProfile(Profile profile) {
+		this.profile = profile;
+	}
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -63,7 +86,7 @@ public class UserInRole {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserInRole other = (UserInRole) obj;
+		Address other = (Address) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -71,5 +94,4 @@ public class UserInRole {
 			return false;
 		return true;
 	}
-	
 }

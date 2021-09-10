@@ -1,4 +1,4 @@
-package org.felix.springframework.basics.relaciones;
+package org.felix.springframework.basics.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,23 +6,23 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 @Entity
-@Table(name ="user")
-public class User {
+public class UserInRole {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	
-	@Column(name = "username")
-	private String username;
-	
-	@Column(name = "password")
-	private String password;
+	@ManyToOne
+	@JoinColumn(name = "role_id")
+	private Role role;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	public Integer getId() {
 		return id;
@@ -32,36 +32,22 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUsername() {
-		return username;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
-	public String getPassword() {
-		return password;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	@OneToOne
-	@JoinColumn(name = "profile_id", 
-	referencedColumnName = "id") //el nombre de la columna en la otra tabla
-	private Profile profile;
-
-	public Profile getProfile() {
-		return profile;
-	}
-
-	public void setProfile(Profile profile) {
-		this.profile = profile;
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -77,7 +63,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		UserInRole other = (UserInRole) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -85,6 +71,5 @@ public class User {
 			return false;
 		return true;
 	}
-	
 	
 }
