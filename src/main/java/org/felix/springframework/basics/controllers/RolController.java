@@ -5,9 +5,7 @@ import org.felix.springframework.basics.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +22,15 @@ public class RolController {
     @GetMapping("/list")
     public ResponseEntity<List<Role>> getRoles() {
         return new ResponseEntity<>(roleService.findAll(), HttpStatus.OK);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<Role> createRole(@RequestBody Role role){
+        return new ResponseEntity<>(roleService.create(role), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update/{roleId}")
+    public ResponseEntity<Role> updateRole(@PathVariable("roleId") Integer roleId, @RequestBody Role role){
+        return new ResponseEntity<>(roleService.update(roleId, role), HttpStatus.ACCEPTED);
     }
 }
